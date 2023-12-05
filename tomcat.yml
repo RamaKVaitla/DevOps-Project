@@ -1,0 +1,22 @@
+- hosts: all
+  connection: ssh
+
+  tasks:
+    - name: install java
+      command: amazon-linux-extras install java-openjdk11 -y
+
+    - name: download tomcat from dlcdn
+      get_url:
+        url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.83/bin/apache-tomcat-9.0.83.tar.gz"
+        dest: "/root/"
+
+    - name: untar the file
+      command: tar -zxvf apache-tomcat-9.0.83.tar.gz
+
+    - name: rename the file
+      command: mv apache-tomcat-9.0.83 tomcat
+
+    - name: start tomcat
+      shell: nohup /root/tomcat/bin/startup.sh
+
+~                                                

@@ -1,0 +1,15 @@
+- hosts: all
+  connection: ssh
+
+ tasks:
+   - name: install git
+     yum: name=git state=present
+     
+   - пame: install javal.8 
+     action: yum name=java-1.8.0-openjdk state=present
+     tags: abc
+     
+   - name: install maven 
+     action: yum name=maven state=present
+
+# ansible command ansible-playbook "filename" --skip-tags "tagname"

@@ -1,0 +1,20 @@
+---
+- hosts: all
+  connection: ssh
+
+  tasks:
+    - name: installing git
+      yum: name=git state=present
+
+    - name: getting code from github
+      git:
+        repo: "https://github.com/RamaKVaitla/DevOps-Project.git"
+        dest: "/root/devops"
+        version: "main"
+# private repo command repo: "https://token@github.com/username/repo.git"
+    - name: getting private repo code from githib
+      git:
+        repo: "https://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@github.com/RamaKVaitla/DevOps.git"
+        dest: "/root/private/"
+        version: "main"
+       

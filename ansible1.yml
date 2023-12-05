@@ -1,0 +1,61 @@
+---
+- hosts: dev
+  connection: ssh
+
+  tasks:
+    - name: creating multiple groups
+      group: name={{item}} state=present
+      with_items:
+            - tcs
+            - infosys
+            - techm
+
+    - name: creating a folder
+      file:
+        path: "devops"
+        state: directory
+
+    - name: adding file to folder
+      file:
+        path: "devops/linux.pem"
+        state: touch
+
+    - name: adding data to file
+      copy:
+        dest: "devops/linux.pem"
+        content: |
+          Hi this is a test file
+          created using ansible
+
+#installing and deploying webserver httpd
+
+    - name: installing webserver
+      yum: name=httpd state=present
+
+    - name: starting webserver
+      service: name=httpd state=started
+
+    - name: create a file
+      file:
+        path: "/var/www/html/index.html"
+        state: touch
+
+    - name: adding data to file
+      copy:
+        dest: "/var/www/html/index.html"
+        content: |
+          <Html>
+          <Head>
+          <title>
+          Example of anchor or hyperlink
+          </title>
+          </Head>
+          <Body>
+          <!-- In this example we use the anchor tag for linking one page to another by using the href attribute
+          which specify the url of the second page which you want to link.-->
+          <center> Click on <a href="https://www.javatpoint.com/html-favicon"> this link </a> for reading about HTML favicon in JavaTpoint.
+          </center>
+          </Body>
+          </Html>
+  
+...

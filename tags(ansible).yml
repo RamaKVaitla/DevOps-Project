@@ -13,3 +13,4 @@
      action: yum name=maven state=present
 
 # ansible command ansible-playbook "filename" --skip-tags "tagname"
+# To run a particular tag use command ansible-playbook "filename" --tags "tagname"

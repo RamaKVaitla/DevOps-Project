@@ -1,0 +1,48 @@
+---
+- hosts: all
+  connection: ssh
+
+############### DEBUG ##############
+
+  tasks:
+    - name: installing git
+      yum: name=git state=present
+
+    - name: confirming git installation
+      command: git --version
+      register: abc
+
+    - name: printing the output using debug module
+      debug: 
+        msg: "git has been install with {{ abc.stdout }}"
+
+############### RAW ################
+
+  tasks:
+    - name: using raw module
+      raw: yum install vim-common -y 
+# raw module is used where command module is failed to perform
+
+################ PIP ###################
+
+  tasks:
+    - name: installing pip
+      yum: name=python-pip state=present
+
+    - name: install NumPY
+      pip:
+        name: NumPy
+# installing packages/tools using pip
+
+############### Handlers ################
+
+  tasks:
+      - name: install web server
+        yum: name=httpd state=present
+        notify: restart httpd
+
+  handlers:
+      - name: restart httpd
+        action: service name=httpd state=started
+
+  # handler is used to perform other tasks using same name
